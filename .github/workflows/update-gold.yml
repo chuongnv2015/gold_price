@@ -2,18 +2,14 @@ name: Auto Update Gold Prices
 
 on:
   schedule:
-    # Chạy tự động mỗi 3 tiếng một lần (có thể điều chỉnh cron tùy ý)
     - cron: '0 */3 * * *'
-  workflow_dispatch: # Cho phép chạy thủ công bất cứ lúc nào trên GitHub
+  workflow_dispatch:
 
 jobs:
   update-prices:
-  name: Crawl and Commit Gold Prices
     runs-on: ubuntu-latest
-    
     permissions:
-      contents: write # Cho phép GitHub Actions push code ngược lại repo
-
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
