@@ -1,0 +1,39 @@
+name: Auto Update Gold Prices
+
+on:
+  schedule:
+    # Chạy tự động mỗi 3 tiếng một lần (có thể điều chỉnh cron tùy ý)
+    - cron: '0 */3 * * *'
+  workflow_dispatch: # Cho phép chạy thủ công bất cứ lúc nào trên GitHub
+
+jobs:
+  update-prices:
+  name: Crawl and Commit Gold Prices
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write # Cho phép GitHub Actions push code ngược lại repo
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Run scraper script
+        run: python crawl_gold.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gold-prices.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update gold prices [skip ci]" && git push)
