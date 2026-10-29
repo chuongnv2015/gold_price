@@ -1,5 +1,5 @@
 {
-    "updated_at": "2026-10-29 09:27:26",
+    "updated_at": "2026-10-29 18:05:46",
     "prices": {
         "btmc": [
             {
@@ -30,12 +30,12 @@
             {
                 "type": "Vàng BTMC",
                 "buy": "Trang sức bằng Vàng Rồng Thăng Long 999.9 (24k)",
-                "sell": "webgia.com"
+                "sell": "xem tại webgia.com"
             },
             {
                 "type": "Trang sức bằng Vàng Rồng Thăng Long 99.9 (24k)",
-                "buy": "webgiá.com",
-                "sell": "xem tại webgia.com"
+                "buy": "xem tại webgia.com",
+                "sell": "web giá"
             },
             {
                 "type": "Vàng Thị Trường",
@@ -71,53 +71,53 @@
             },
             {
                 "type": "Vàng miếng SJC (Cty CP BTMH)",
-                "buy": "web giá",
+                "buy": "webgia.com",
                 "sell": "webgia.com"
             },
             {
                 "type": "Vàng trang sức 24K (99.9)",
-                "buy": "webgia.com",
-                "sell": "webgia.com"
+                "buy": "xem tại webgia.com",
+                "sell": "xem tại webgia.com"
             },
             {
                 "type": "Vàng trang sức 24K (999.9)",
-                "buy": "webgia.com",
-                "sell": "web giá"
+                "buy": "web giá",
+                "sell": "webgia.com"
             },
             {
                 "type": "Vàng Kim Gia Bảo 24K (999.9)",
-                "buy": "webgiá.com",
-                "sell": "webgia.com"
+                "buy": "web giá",
+                "sell": "webgiá.com"
             },
             {
                 "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
                 "buy": "webgia.com",
-                "sell": "xem tại webgia.com"
+                "sell": "web giá"
             },
             {
                 "type": "Kim Gia Bảo Gift 24K",
-                "buy": "xem tại webgia.com",
+                "buy": "webgia.com",
                 "sell": "webgia.com"
             },
             {
                 "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
                 "buy": "xem tại webgia.com",
-                "sell": "xem tại webgia.com"
+                "sell": "webgia.com"
             },
             {
                 "type": "Nhẫn tròn 999.9 BTMH",
-                "buy": "webgiá.com",
-                "sell": "webgiá.com"
-            },
-            {
-                "type": "Tiểu Kim Cát - 0,3 chỉ",
                 "buy": "web giá",
                 "sell": "webgia.com"
             },
             {
+                "type": "Tiểu Kim Cát - 0,3 chỉ",
+                "buy": "web giá",
+                "sell": "webgiá.com"
+            },
+            {
                 "type": "Bạc Nguyên liệu 999",
-                "buy": "webgiá.com",
-                "sell": "web giá"
+                "buy": "web giá",
+                "sell": "xem tại webgia.com"
             }
         ]
     }
