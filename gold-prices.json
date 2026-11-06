@@ -1,21 +1,21 @@
 {
-    "updated_at": "2026-11-06 03:19:45",
+    "updated_at": "2026-11-06 12:49:10",
     "prices": {
         "btmc": [
             {
                 "type": "VRTL",
                 "buy": "Vàng miếng 999.9 (24k)",
-                "sell": "13.700.000"
+                "sell": "13.650.000"
             },
             {
                 "type": "Nhẫn tròn trơn 999.9 (24k)",
-                "buy": "13.700.000",
-                "sell": "14.100.000"
+                "buy": "13.650.000",
+                "sell": "14.050.000"
             },
             {
                 "type": "Đồng xu VRTL 0.1 999.9 (24k)",
-                "buy": "1.370.000",
-                "sell": "1.410.000"
+                "buy": "1.365.000",
+                "sell": "1.405.000"
             },
             {
                 "type": "Quà Mừng Vàng",
@@ -25,44 +25,44 @@
             {
                 "type": "Vàng SJC",
                 "buy": "Vàng miếng 999.9 (24k)",
-                "sell": "13.700.000"
+                "sell": "13.650.000"
             },
             {
                 "type": "Vàng BTMC",
                 "buy": "Trang sức bằng Vàng Rồng Thăng Long 999.9 (24k)",
-                "sell": "webgia.com"
+                "sell": "web giá"
             },
             {
                 "type": "Vàng Thị Trường",
                 "buy": "Vàng 999.9 (24k)",
-                "sell": "webgiá.com"
+                "sell": "web giá"
             }
         ],
         "btmh": [
             {
-                "type": "Vàng nguyên liệu 99.9",
-                "buy": "12.750.000",
-                "sell": "-"
-            },
-            {
-                "type": "Vàng nguyên liệu 999,9",
-                "buy": "12.800.000",
-                "sell": "-"
+                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
+                "buy": "1.576.000",
+                "sell": "1.854.000"
             },
             {
                 "type": "Bạc thỏi BTMH 999 1 KG",
-                "buy": "41.947.000",
-                "sell": "43.254.000"
-            },
-            {
-                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
-                "buy": "1.573.000",
-                "sell": "1.851.000"
+                "buy": "42.027.000",
+                "sell": "43.334.000"
             },
             {
                 "type": "Bạc Thỏi BTMH 1 lượng",
-                "buy": "1.573.000",
-                "sell": "1.622.000"
+                "buy": "1.576.000",
+                "sell": "1.625.000"
+            },
+            {
+                "type": "Vàng trang sức 24K (99.9)",
+                "buy": "13.440.000",
+                "sell": "13.940.000"
+            },
+            {
+                "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
+                "buy": "13.650.000",
+                "sell": "-"
             }
         ]
     }
