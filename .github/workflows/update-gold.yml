@@ -2,7 +2,9 @@ name: Auto Update Gold Prices
 
 on:
   schedule:
-    - cron: '0 */3 * * *'
+    # Tối ưu: Chạy mỗi 2 tiếng, từ 8h sáng đến 18h tối (Giờ VN = 1h đến 11h UTC), từ Thứ 2 đến Thứ 7
+    # Không chạy vào ban đêm và Chủ nhật vì giá vàng lúc đó không biến động, tiết kiệm số phút Github Actions
+    - cron: '0 1,3,5,7,9,11 * * 1-6'
   workflow_dispatch:
 
 jobs:
@@ -18,6 +20,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          cache: 'pip' # Dùng cache để cài package siêu tốc trong các lần chạy sau
 
       - name: Install dependencies
         run: |
@@ -32,4 +35,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add gold-prices.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update gold prices [skip ci]" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Cập nhật giá vàng tự động [skip ci]" && git push)
