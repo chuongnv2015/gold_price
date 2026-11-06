@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip' # Dùng cache để cài package siêu tốc trong các lần chạy sau
 
       - name: Install dependencies
         run: |
