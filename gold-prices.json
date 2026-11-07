@@ -1,6 +1,33 @@
 {
-    "updated_at": "2026-11-06 12:49:10",
+    "updated_at": "2026-11-07 06:57:47",
     "prices": {
+        "btmh": [
+            {
+                "type": "Bạc thỏi BTMH 999 1 KG",
+                "buy": "41.840.000",
+                "sell": "43.147.000"
+            },
+            {
+                "type": "Bạc Thỏi BTMH 1 lượng",
+                "buy": "1.569.000",
+                "sell": "1.618.000"
+            },
+            {
+                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
+                "buy": "1.569.000",
+                "sell": "1.846.000"
+            },
+            {
+                "type": "Vàng trang sức 24K (99.9)",
+                "buy": "13.440.000",
+                "sell": "13.940.000"
+            },
+            {
+                "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
+                "buy": "13.650.000",
+                "sell": "-"
+            }
+        ],
         "btmc": [
             {
                 "type": "VRTL",
@@ -30,39 +57,12 @@
             {
                 "type": "Vàng BTMC",
                 "buy": "Trang sức bằng Vàng Rồng Thăng Long 999.9 (24k)",
-                "sell": "web giá"
+                "sell": "xem tại webgia.com"
             },
             {
                 "type": "Vàng Thị Trường",
                 "buy": "Vàng 999.9 (24k)",
-                "sell": "web giá"
-            }
-        ],
-        "btmh": [
-            {
-                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
-                "buy": "1.576.000",
-                "sell": "1.854.000"
-            },
-            {
-                "type": "Bạc thỏi BTMH 999 1 KG",
-                "buy": "42.027.000",
-                "sell": "43.334.000"
-            },
-            {
-                "type": "Bạc Thỏi BTMH 1 lượng",
-                "buy": "1.576.000",
-                "sell": "1.625.000"
-            },
-            {
-                "type": "Vàng trang sức 24K (99.9)",
-                "buy": "13.440.000",
-                "sell": "13.940.000"
-            },
-            {
-                "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
-                "buy": "13.650.000",
-                "sell": "-"
+                "sell": "webgia.com"
             }
         ]
     }
