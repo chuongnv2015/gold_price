@@ -1,48 +1,48 @@
 {
-    "updated_at": "2026-11-07 13:54:20",
+    "updated_at": "2026-11-09 07:48:37",
     "prices": {
         "btmh": [
             {
-                "type": "Vàng nguyên liệu 999,9",
-                "buy": "13.050.000",
-                "sell": "-"
+                "type": "Vàng miếng SJC (Cty CP BTMH)",
+                "buy": "13.820.000",
+                "sell": "14.120.000"
             },
             {
-                "type": "Vàng nguyên liệu 99.9",
-                "buy": "13.000.000",
-                "sell": "-"
+                "type": "Vàng Kim Gia Bảo 24K (999.9)",
+                "buy": "13.740.000",
+                "sell": "14.140.000"
             },
             {
-                "type": "Bạc thỏi BTMH 999 1 KG",
-                "buy": "41.840.000",
-                "sell": "43.147.000"
+                "type": "Vàng trang sức 24K (99.9)",
+                "buy": "13.530.000",
+                "sell": "14.030.000"
             },
             {
-                "type": "Bạc Thỏi BTMH 1 lượng",
-                "buy": "1.569.000",
-                "sell": "1.618.000"
+                "type": "Kim Gia Bảo Gift 24K",
+                "buy": "14.240.000",
+                "sell": "14.640.000"
             },
             {
-                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
-                "buy": "1.569.000",
-                "sell": "1.846.000"
+                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
+                "buy": "13.740.000",
+                "sell": "14.140.000"
             }
         ],
         "btmc": [
             {
                 "type": "VRTL",
                 "buy": "Vàng miếng 999.9 (24k)",
-                "sell": "13.650.000"
+                "sell": "13.740.000"
             },
             {
                 "type": "Nhẫn tròn trơn 999.9 (24k)",
-                "buy": "13.650.000",
-                "sell": "14.050.000"
+                "buy": "13.740.000",
+                "sell": "14.140.000"
             },
             {
                 "type": "Đồng xu VRTL 0.1 999.9 (24k)",
-                "buy": "1.365.000",
-                "sell": "1.405.000"
+                "buy": "1.374.000",
+                "sell": "1.414.000"
             },
             {
                 "type": "Quà Mừng Vàng",
@@ -52,12 +52,12 @@
             {
                 "type": "Vàng SJC",
                 "buy": "Vàng miếng 999.9 (24k)",
-                "sell": "13.650.000"
+                "sell": "13.740.000"
             },
             {
                 "type": "Vàng BTMC",
                 "buy": "Trang sức bằng Vàng Rồng Thăng Long 999.9 (24k)",
-                "sell": "webgia.com"
+                "sell": "web giá"
             },
             {
                 "type": "Vàng Thị Trường",
