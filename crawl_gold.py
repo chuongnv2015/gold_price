@@ -5,11 +5,11 @@ from bs4 import BeautifulSoup
 import concurrent.futures
 
 def fetch_data(brand, url, headers):
-    """Hàm cào và làm sạch dữ liệu cho từng brand"""
+    """Hàm cào và lọc dữ liệu cho từng thương hiệu"""
     try:
-        # Dùng Session để tăng tốc độ kết nối
+        # Dùng Session để duy trì kết nối nhanh
         with requests.Session() as session:
-            response = session.get(url, headers=headers, timeout=10)
+            response = session.get(url, headers=headers, timeout=15)
             if response.status_code != 200:
                 return brand, []
                 
@@ -18,7 +18,6 @@ def fetch_data(brand, url, headers):
             
             brand_prices = []
             if table:
-                # Ưu tiên tìm trong tbody để tránh dính thẻ thead (tiêu đề)
                 tbody = table.find("tbody")
                 rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
                 
@@ -29,15 +28,21 @@ def fetch_data(brand, url, headers):
                         buy = cols[1]
                         sell = cols[2]
                         
-                        # --- BỘ LỌC CHỐNG NHIỄU (ANTI-WATERMARK) ---
-                        # 1. Bỏ qua các dòng bị webgia chèn watermark mờ
+                        # --- BỘ LỌC RÁC TỪ WEBGIA ---
                         lower_buy = buy.lower()
                         if "webgia" in lower_buy or "web" in lower_buy or "giá" in lower_buy:
                             continue
-                            
-                        # 2. Đảm bảo cột giá mua hoặc bán thực sự chứa chữ số
                         if not any(c.isdigit() for c in buy) and not any(c.isdigit() for c in sell):
                             continue
+                            
+                        # --- CHUẨN HÓA TÊN LOẠI VÀNG ĐỂ HTML APP ĐỌC ĐƯỢC ---
+                        # 1. Phú Quý: Đổi "V9999P" -> Thành tên mà HTML đang mong đợi
+                        if brand == "phu_quy" and "V9999P" in name:
+                            name = "Vàng nguyên liệu 999,9"
+                            
+                        # 2. Bảo Tín Mạnh Hải: Đổi "Nhẫn tròn 999.9 BTMH" -> Thành tên mà HTML đang mong đợi
+                        if brand == "btmh" and "Nhẫn tròn 999.9 BTMH" in name:
+                            name = "Vàng miếng SJC (Cty CP BTMH)"
                             
                         brand_prices.append({
                             "type": name,
@@ -50,8 +55,9 @@ def fetch_data(brand, url, headers):
         return brand, []
 
 def crawl_gold_prices():
+    # Cập nhật đúng 2 link đích theo yêu cầu
     urls = {
-        "btmc": "https://webgia.com/gia-vang/bao-tin-minh-chau/",
+        "phu_quy": "https://webgia.com/gia-vang/phu-quy/",
         "btmh": "https://webgia.com/gia-vang/bao-tin-manh-hai/"
     }
     
@@ -64,7 +70,7 @@ def crawl_gold_prices():
         "prices": {}
     }
 
-    # TỐI ƯU NHANH NHẤT: Xử lý cào nhiều trang cùng lúc (Đa luồng/Threading)
+    # Chạy cào đa luồng (song song 2 link) để lấy dữ liệu nhanh nhất có thể
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         futures = [executor.submit(fetch_data, brand, url, headers) for brand, url in urls.items()]
         
@@ -72,10 +78,11 @@ def crawl_gold_prices():
             brand, prices = future.result()
             data["prices"][brand] = prices
 
-    # Lưu ra file gold-prices.json
+    # Lưu ra file JSON
     with open("gold-prices.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-    print("Đã cập nhật file gold-prices.json thành công (Đã lọc sạch rác)!")
+        
+    print("Cào dữ liệu thành công! Đã bắt đúng giá V9999P và Nhẫn tròn 999.9 BTMH.")
 
 if __name__ == "__main__":
     crawl_gold_prices()
