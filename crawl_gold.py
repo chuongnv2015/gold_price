@@ -7,7 +7,6 @@ import concurrent.futures
 def fetch_data(brand, url, headers):
     """Hàm cào và lọc dữ liệu cho từng thương hiệu"""
     try:
-        # Dùng Session để duy trì kết nối nhanh
         with requests.Session() as session:
             response = session.get(url, headers=headers, timeout=15)
             if response.status_code != 200:
@@ -23,10 +22,19 @@ def fetch_data(brand, url, headers):
                 
                 for row in rows:
                     cols = [ele.text.strip() for ele in row.find_all(["td", "th"])]
-                    if len(cols) >= 3:
-                        name = cols[0]
-                        buy = cols[1]
-                        sell = cols[2]
+                    # Bảng trên webgia thường có 4 cột (Loại vàng, Tên vàng, Mua vào, Bán ra)
+                    # Dòng đầu tiên có thể có 5 cột (có thêm cột Khu vực chứa rowspan)
+                    if len(cols) >= 4:
+                        # Lấy 2 cột cuối cùng luôn luôn là Giá Mua và Giá Bán
+                        sell = cols[-1]
+                        buy = cols[-2]
+                        
+                        # Tên vàng thường nằm ở cột áp chót trước giá mua
+                        name = cols[-3]
+                        
+                        # Nếu cột Tên vàng bị trống, lấy cột Loại vàng
+                        if not name:
+                            name = cols[-4]
                         
                         # --- BỘ LỌC RÁC TỪ WEBGIA ---
                         lower_buy = buy.lower()
@@ -36,8 +44,8 @@ def fetch_data(brand, url, headers):
                             continue
                             
                         # --- CHUẨN HÓA TÊN LOẠI VÀNG ĐỂ HTML APP ĐỌC ĐƯỢC ---
-                        # 1. Phú Quý: Đổi "V9999P" -> Thành tên mà HTML đang mong đợi
-                        if brand == "phu_quy" and "V9999P" in name:
+                        # 1. Phú Quý: Đổi "V9999P" hoặc "Vàng 999.9 phi SJC" -> Thành tên mà HTML đang mong đợi
+                        if brand == "phu_quy" and ("V9999P" in name or "Vàng 999.9 phi SJC" in name or "V9999P" in cols[-4]):
                             name = "Vàng nguyên liệu 999,9"
                             
                         # 2. Bảo Tín Mạnh Hải: Đổi "Nhẫn tròn 999.9 BTMH" -> Thành tên mà HTML đang mong đợi
