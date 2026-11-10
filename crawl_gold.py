@@ -21,18 +21,23 @@ def fetch_data(brand, url, headers):
                 rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
                 
                 for row in rows:
+                    # Lấy tất cả các ô trong dòng
                     cols = [ele.text.strip() for ele in row.find_all(["td", "th"])]
                     
-                    # Bảng BTMH có 3 cột, Phú Quý có 4-5 cột. Lấy >= 3 để vét sạch
                     if len(cols) >= 3:
-                        # 2 cột cuối cùng luôn là Giá Mua và Giá Bán
+                        # 2 cột ngoài cùng bên phải luôn luôn là Giá Mua và Giá Bán
                         buy = cols[-2]
                         sell = cols[-1]
                         
-                        # Nối tất cả các cột phía trước lại làm Tên vàng để không bị trượt từ khóa
-                        name = " ".join(cols[:-2])
+                        # Tên hiển thị mặc định sẽ lấy ở cột kế Giá Mua (cột áp chót 3)
+                        name = cols[-3]
+                        if not name and len(cols) >= 4:
+                            name = cols[-4] # Fallback nếu cột áp chót 3 bị trống
                         
-                        # --- XỬ LÝ RÁC WEBGIA (Lọc riêng từng cột) ---
+                        # Quét toàn bộ chữ trong dòng để dò từ khóa (bất chấp web bị lệch cột)
+                        row_text = " ".join(cols).upper()
+                        
+                        # --- XỬ LÝ RÁC WEBGIA CHÈN VÀO CỘT SỐ ---
                         lower_buy = buy.lower()
                         lower_sell = sell.lower()
                         
@@ -41,17 +46,17 @@ def fetch_data(brand, url, headers):
                         if "webgia" in lower_sell or "web" in lower_sell or "giá" in lower_sell:
                             sell = ""
                             
-                        # Nếu cả 2 cột đều không có số tiền thì mới bỏ qua dòng này
+                        # Nếu cả 2 cột Mua và Bán đều không có bất kỳ con số nào thì bỏ qua dòng này
                         if not any(c.isdigit() for c in buy) and not any(c.isdigit() for c in sell):
                             continue
                             
                         # --- DỊCH TÊN VÀNG CHO APP THÁP TÀI SẢN ĐỌC ---
-                        # Đổi tên Phú Quý
-                        if brand == "phu_quy" and ("V9999P" in name or "999.9 phi SJC" in name):
+                        # 1. Quét tìm V9999P của Phú Quý
+                        if brand == "phu_quy" and ("V9999P" in row_text or "999.9 PHI SJC" in row_text):
                             name = "Vàng nguyên liệu 999,9"
                             
-                        # Đổi tên BTMH
-                        if brand == "btmh" and "Nhẫn tròn 999.9 BTMH" in name:
+                        # 2. Quét tìm Nhẫn BTMH
+                        if brand == "btmh" and ("NHẪN TRÒN 999.9 BTMH" in row_text):
                             name = "Vàng miếng SJC (Cty CP BTMH)"
                             
                         brand_prices.append({
@@ -65,7 +70,7 @@ def fetch_data(brand, url, headers):
         return brand, []
 
 def crawl_gold_prices():
-    # Cập nhật đúng 2 link đích
+    # URL cào dữ liệu Phú Quý và BTMH
     urls = {
         "phu_quy": "https://webgia.com/gia-vang/phu-quy/",
         "btmh": "https://webgia.com/gia-vang/bao-tin-manh-hai/"
@@ -80,7 +85,7 @@ def crawl_gold_prices():
         "prices": {}
     }
 
-    # Cào song song đa luồng để tiết kiệm thời gian
+    # Chạy đa luồng song song để tăng tốc cào
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         futures = [executor.submit(fetch_data, brand, url, headers) for brand, url in urls.items()]
         
@@ -88,11 +93,11 @@ def crawl_gold_prices():
             brand, prices = future.result()
             data["prices"][brand] = prices
 
-    # Lưu kết quả
+    # Ghi ra file JSON
     with open("gold-prices.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         
-    print("Cào dữ liệu thành công! Đã bắt đúng mốc V9999P và Nhẫn tròn 999.9 BTMH.")
+    print("Cào dữ liệu thành công! Đã bắt mốc V9999P và Nhẫn BTMH.")
 
 if __name__ == "__main__":
     crawl_gold_prices()
