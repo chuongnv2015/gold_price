@@ -1,272 +1,312 @@
-
 import json
 import re
-import requests
+import unicodedata
 import concurrent.futures
-
 from datetime import datetime
 from zoneinfo import ZoneInfo
+
+import requests
 from bs4 import BeautifulSoup
 
+
+# ============================================================
+# CAU HINH
+# ============================================================
+
+URL_PHU_QUY = "https://phuquygroup.vn/giavang"
+URL_BTMH = "https://webgia.com/gia-vang/bao-tin-manh-hai/"
+
+OUTPUT_FILE = "gold-prices.json"
 
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/120.0.0.0 Safari/537.36"
-    )
+    ),
+    "Accept-Language": "vi-VN,vi;q=0.9,en;q=0.8",
 }
 
-URL_PHU_QUY = "https://phuquygroup.vn/giavang"
-URL_BTMH = "https://webgia.com/gia-vang/bao-tin-manh-hai/"
 
-
-def clean_price(value):
-    """Làm sạch giá, không nhận watermark."""
-    value = value.strip()
-
-    if not value or "webgia" in value.lower() or "web" in value.lower():
-        return ""
-
-    if value in ["-", "—", "–"]:
-        return ""
-
-    # Chỉ giữ lại số
-    digits = re.sub(r"\D", "", value)
-
-    if not digits:
-        return ""
-
-    # Chuẩn hóa về định dạng 13.500.000
-    return f"{int(digits):,}".replace(",", ".")
-
+# ============================================================
+# HAM DUNG CHUNG
+# ============================================================
 
 def get_page(url):
+    """Tai trang web va tra ve BeautifulSoup."""
     response = requests.get(
         url,
         headers=HEADERS,
-        timeout=20
+        timeout=25
     )
     response.raise_for_status()
+
+    # Dung encoding do requests phat hien; fallback UTF-8 neu can.
+    if not response.encoding or response.encoding.lower() == "iso-8859-1":
+        response.encoding = response.apparent_encoding or "utf-8"
+
     return BeautifulSoup(response.text, "html.parser")
 
 
-# ==========================================
-# PHÚ QUÝ - WEBSITE CHÍNH THỨC
-# ==========================================
+def normalize_name(text):
+    """Chuan hoa ten de so sanh, khong phan biet hoa thuong/dau."""
+    text = unicodedata.normalize("NFD", text)
+    text = "".join(
+        char for char in text
+        if unicodedata.category(char) != "Mn"
+    )
+    text = text.replace("\xa0", " ")
+    return re.sub(r"\s+", " ", text).strip().upper()
+
+
+def clean_price(value):
+    """
+    Chuan hoa gia thanh dang 13.740.000.
+    Gia trong, '-', watermark hoac khong co chu so se thanh chuoi rong.
+    """
+    value = (value or "").replace("\xa0", " ").strip()
+
+    if not value:
+        return ""
+
+    lowered = value.lower()
+    if "webgia" in lowered or "web" in lowered:
+        return ""
+
+    if value in {"-", "—", "–"}:
+        return ""
+
+    digits = re.sub(r"\D", "", value)
+    if not digits:
+        return ""
+
+    return f"{int(digits):,}".replace(",", ".")
+
+
+# ============================================================
+# PHU QUY - WEBSITE CHINH THUC
+# ============================================================
 
 def fetch_phu_quy():
+    """
+    Doc bang gia Phu Quy tu website chinh thuc.
 
-    brand = "phu_quy"
+    Chi chap nhan bang co dong ten chinh xac:
+    'Vang 999.9 phi SJC'.
 
-    try:
-        soup = get_page(URL_PHU_QUY)
+    Khong lay gia cua 'Vang trang suc 999.9',
+    'Phu Quy 1 Luong 999.9' hay san pham khac de thay the V9999P.
+    """
+    print("Dang lay bang gia Phu Quy...")
 
-        prices = []
+    soup = get_page(URL_PHU_QUY)
 
-        # Tìm bảng có các tiêu đề Loại vàng, Mua vào, Bán ra
-        for table in soup.find_all("table"):
+    target_table = None
 
-            rows = table.find_all("tr")
+    # Tim bang co dong Vang 999.9 phi SJC.
+    for table in soup.find_all("table"):
+        for row in table.find_all("tr"):
+            cells = row.find_all(["td", "th"])
 
-            for row in rows:
+            if not cells:
+                continue
 
-                cells = row.find_all(["td", "th"])
+            row_name = cells[0].get_text(" ", strip=True)
 
-                if len(cells) < 3:
-                    continue
+            if normalize_name(row_name) == "VANG 999.9 PHI SJC":
+                target_table = table
+                break
 
-                values = [
-                    cell.get_text(" ", strip=True)
-                    for cell in cells
-                ]
+        if target_table is not None:
+            break
 
-                row_text = " ".join(values).lower()
-
-                # Bỏ qua dòng tiêu đề
-                if "loại vàng" in row_text:
-                    continue
-
-                name = values[0].strip()
-
-                # Chỉ lấy dữ liệu thuộc bảng giá
-                if not name:
-                    continue
-
-                buy = clean_price(values[1])
-                sell = clean_price(values[2])
-
-                prices.append({
-                    "type": name,
-                    "buy": buy,
-                    "sell": sell
-                })
-
-        # Kiểm tra riêng sản phẩm V9999P
-        target = next(
-            (
-                item for item in prices
-                if "vàng 999.9 phi sjc" in item["type"].lower()
-            ),
-            None
+    if target_table is None:
+        raise RuntimeError(
+            "Khong tim thay dong 'Vang 999.9 phi SJC' "
+            "trong HTML tra ve tu website Phu Quy. "
+            "Co the website da doi cau truc hoac tai bang gia bang JavaScript."
         )
 
-        if target is None:
-            raise ValueError(
-                "Không tìm thấy dòng Vàng 999.9 phi SJC "
-                "trên website chính thức!"
-            )
+    prices = []
+    found_v9999p = False
 
-        if not target["buy"]:
-            raise ValueError(
-                "V9999P không có giá mua hợp lệ!"
-            )
+    for row in target_table.find_all("tr"):
+        cells = row.find_all(["td", "th"])
 
-        print("\nPHÚ QUÝ - V9999P")
-        print("Tên:", target["type"])
-        print("Mua:", target["buy"])
-        print("Bán:", target["sell"])
+        # Cau truc bang tren anh nguoi dung cung cap:
+        # cot 1 = Ten vang, cot 2 = Mua vao, cot 3 = Ban ra.
+        if len(cells) < 3:
+            continue
 
-        # Đổi tên theo cấu trúc JSON của ứng dụng
-        target["type"] = "Vàng nguyên liệu 999,9"
+        name = cells[0].get_text(" ", strip=True)
+        if not name:
+            continue
 
-        return brand, prices
+        normalized = normalize_name(name)
 
-    except Exception as e:
-        print(f"LỖI PHÚ QUÝ: {e}")
-        return brand, []
+        # Bo qua cac dong tieu de.
+        if "MUA VAO" in normalized or "BAN RA" in normalized:
+            continue
+
+        buy_raw = cells[1].get_text(" ", strip=True)
+        sell_raw = cells[2].get_text(" ", strip=True)
+
+        buy = clean_price(buy_raw)
+        sell = clean_price(sell_raw)
+
+        # Khong dua cac dong khong phai san pham vao JSON.
+        if not buy and not sell:
+            continue
+
+        if normalized == "VANG 999.9 PHI SJC":
+            if not buy:
+                raise RuntimeError(
+                    "Tim thay dong V9999P nhung khong doc duoc gia mua."
+                )
+
+            name = "Vàng nguyên liệu 999,9"
+            found_v9999p = True
+
+            print("Da tim thay V9999P:")
+            print(f"  Mua vao: {buy}")
+            print(f"  Ban ra:  {sell if sell else 'Chua niem yet'}")
+
+        prices.append({
+            "type": name,
+            "buy": buy,
+            "sell": sell
+        })
+
+    if not found_v9999p:
+        raise RuntimeError(
+            "Khong doc duoc dong V9999P tu bang gia Phu Quy."
+        )
+
+    return "phu_quy", prices
 
 
-# ==========================================
-# BẢO TÍN MẠNH HẢI - WEBGIA
-# ==========================================
+# ============================================================
+# BAO TIN MANH HAI - WEBGIA
+# ============================================================
 
 def fetch_btmh():
+    """Doc bang gia Bao Tin Manh Hai tu Webgia."""
+    print("Dang lay bang gia Bao Tin Manh Hai...")
 
-    brand = "btmh"
+    soup = get_page(URL_BTMH)
 
-    try:
-        soup = get_page(URL_BTMH)
+    table = soup.find("table")
+    if table is None:
+        raise RuntimeError("Khong tim thay bang gia BTMH tren Webgia.")
 
-        prices = []
+    tbody = table.find("tbody")
+    rows = (
+        tbody.find_all("tr")
+        if tbody
+        else table.find_all("tr")[1:]
+    )
 
-        table = soup.find("table")
+    prices = []
 
-        if not table:
-            raise ValueError("Không tìm thấy bảng giá BTMH")
+    for row in rows:
+        cols = [
+            cell.get_text(" ", strip=True)
+            for cell in row.find_all(["td", "th"])
+        ]
 
-        tbody = table.find("tbody")
+        if len(cols) < 3:
+            continue
 
-        rows = (
-            tbody.find_all("tr")
-            if tbody
-            else table.find_all("tr")[1:]
-        )
+        # Webgia: cac cot cuoi cung la gia mua va gia ban.
+        name = " ".join(cols[:-2]).strip()
+        buy = clean_price(cols[-2])
+        sell = clean_price(cols[-1])
 
-        for row in rows:
+        if not name or (not buy and not sell):
+            continue
 
-            cols = [
-                ele.get_text(" ", strip=True)
-                for ele in row.find_all(["td", "th"])
-            ]
+        # Chi chuan hoa ten neu dung la dong vang mieng SJC.
+        if "VANG MIENG SJC" in normalize_name(name):
+            name = "Vàng miếng SJC (Cty CP BTMH)"
 
-            if len(cols) < 3:
-                continue
+        prices.append({
+            "type": name,
+            "buy": buy,
+            "sell": sell
+        })
 
-            name = " ".join(cols[:-2]).strip()
+    if not prices:
+        raise RuntimeError("Khong doc duoc du lieu gia BTMH.")
 
-            buy = clean_price(cols[-2])
-            sell = clean_price(cols[-1])
-
-            if not name:
-                continue
-
-            if not buy and not sell:
-                continue
-
-            # Không gán nhầm tên nhẫn thành vàng miếng SJC
-            prices.append({
-                "type": name,
-                "buy": buy,
-                "sell": sell
-            })
-
-        print(f"\nBTMH: Đã lấy {len(prices)} dòng giá")
-
-        return brand, prices
-
-    except Exception as e:
-        print(f"LỖI BTMH: {e}")
-        return brand, []
+    print(f"Da lay {len(prices)} dong gia BTMH.")
+    return "btmh", prices
 
 
-# ==========================================
-# CRAWL TỔNG HỢP
-# ==========================================
+# ============================================================
+# CRAWL VA LUU JSON
+# ============================================================
 
 def crawl_gold_prices():
-
     data = {
         "updated_at": datetime.now(
             ZoneInfo("Asia/Ho_Chi_Minh")
         ).strftime("%Y-%m-%d %H:%M:%S"),
-
         "prices": {}
     }
 
-    with concurrent.futures.ThreadPoolExecutor(
-        max_workers=2
-    ) as executor:
+    # Chay song song hai nguon.
+    tasks = [fetch_phu_quy, fetch_btmh]
 
-        futures = [
-            executor.submit(fetch_phu_quy),
-            executor.submit(fetch_btmh)
-        ]
+    try:
+        with concurrent.futures.ThreadPoolExecutor(
+            max_workers=2
+        ) as executor:
+            futures = [
+                executor.submit(task)
+                for task in tasks
+            ]
 
-        for future in concurrent.futures.as_completed(futures):
+            for future in concurrent.futures.as_completed(futures):
+                brand, prices = future.result()
+                data["prices"][brand] = prices
 
-            brand, prices = future.result()
+        # Kiem tra bat buoc: khong luu neu thieu V9999P.
+        phu_quy_prices = data["prices"].get("phu_quy", [])
 
-            data["prices"][brand] = prices
-
-    # Kiểm tra dữ liệu V9999P trước khi lưu
-    phu_quy = data["prices"].get("phu_quy", [])
-
-    v9999p = next(
-        (
-            item for item in phu_quy
-            if item["type"] == "Vàng nguyên liệu 999,9"
-        ),
-        None
-    )
-
-    if not v9999p:
-        print("\nCẢNH BÁO: KHÔNG CÓ DỮ LIỆU V9999P!")
-
-    else:
-        print("\nKIỂM TRA V9999P THÀNH CÔNG")
-        print(json.dumps(
-            v9999p,
-            ensure_ascii=False,
-            indent=4
-        ))
-
-    # Lưu JSON
-    with open(
-        "gold-prices.json",
-        "w",
-        encoding="utf-8"
-    ) as f:
-
-        json.dump(
-            data,
-            f,
-            ensure_ascii=False,
-            indent=4
+        v9999p = next(
+            (
+                item for item in phu_quy_prices
+                if item["type"] == "Vàng nguyên liệu 999,9"
+            ),
+            None
         )
 
-    print("\nĐÃ LƯU gold-prices.json")
-    print("Thời gian:", data["updated_at"])
+        if v9999p is None or not v9999p["buy"]:
+            raise RuntimeError(
+                "Du lieu V9999P khong hop le. "
+                "Huy thao tac ghi de gold-prices.json cu."
+            )
+
+        # Chi ghi file sau khi ca hai nguon da lay du lieu thanh cong.
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
+            json.dump(
+                data,
+                file,
+                ensure_ascii=False,
+                indent=4
+            )
+
+        print("\nDa cap nhat", OUTPUT_FILE)
+        print("Thoi gian:", data["updated_at"])
+        print("V9999P:", v9999p)
+
+    except Exception as error:
+        print("\nLOI CRAWL:", error)
+        print(
+            "Khong ghi de file JSON. "
+            "File gold-prices.json cu duoc giu nguyen de tranh mat du lieu."
+        )
+        raise
 
 
 if __name__ == "__main__":
