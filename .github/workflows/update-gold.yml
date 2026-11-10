@@ -2,8 +2,7 @@ name: Auto Update Gold Prices
 
 on:
   schedule:
-    # Tối ưu: Chạy mỗi 2 tiếng, từ 8h sáng đến 18h tối (Giờ VN = 1h đến 11h UTC), từ Thứ 2 đến Thứ 7
-    # Không chạy vào ban đêm và Chủ nhật vì giá vàng lúc đó không biến động, tiết kiệm số phút Github Actions
+    # Chạy mỗi 2 tiếng, từ 8h sáng đến 18h tối (Giờ VN = 1h đến 11h UTC), từ Thứ 2 đến Thứ 7
     - cron: '0 1,3,5,7,9,11 * * 1-6'
   workflow_dispatch:
 
@@ -38,8 +37,8 @@ jobs:
           # Kiểm tra nếu file có thay đổi thì mới tiến hành lưu
           if ! git diff --staged --quiet; then
             git commit -m "Cập nhật giá vàng tự động [skip ci]"
-            # Bắt buộc kéo code mới nhất từ kho về để gộp (tránh lỗi rejected)
-            git pull --rebase origin main
-            # Đẩy lên lại kho
+            # Ép Git tự động giải quyết xung đột bằng cách Ưu tiên file JSON của bot (-X theirs)
+            git pull --rebase -X theirs origin main
+            # Đẩy lên kho
             git push origin main
           fi
