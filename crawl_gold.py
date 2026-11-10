@@ -21,56 +21,54 @@ def fetch_data(brand, url, headers):
                 rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
                 
                 for row in rows:
-                    # Lấy tất cả các ô trong dòng
                     cols = [ele.text.strip() for ele in row.find_all(["td", "th"])]
                     
-                    if len(cols) >= 3:
-                        # 2 cột ngoài cùng bên phải luôn luôn là Giá Mua và Giá Bán
-                        buy = cols[-2]
-                        sell = cols[-1]
+                    # Bỏ qua nếu dòng quá ngắn không đủ dữ liệu
+                    if len(cols) < 3:
+                        continue
                         
-                        # Tên hiển thị mặc định sẽ lấy ở cột kế Giá Mua (cột áp chót 3)
-                        name = cols[-3]
-                        if not name and len(cols) >= 4:
-                            name = cols[-4] # Fallback nếu cột áp chót 3 bị trống
+                    # Lấy text của toàn bộ dòng để rà soát từ khóa bất chấp lệch cột
+                    row_text = " ".join(cols).upper()
+                    
+                    # 2 cột ngoài cùng bên phải luôn luôn là Giá Mua và Giá Bán
+                    buy = cols[-2]
+                    sell = cols[-1]
+                    
+                    # Tên mặc định lấy ở cột áp chót (kế cột Giá Mua)
+                    name = cols[-3]
+                    if not name and len(cols) >= 4:
+                        name = cols[-4]
+                    
+                    # --- XỬ LÝ LỌC RÁC TỪ WEBGIA ---
+                    if "WEB" in buy.upper() or "GIÁ" in buy.upper():
+                        buy = ""
+                    if "WEB" in sell.upper() or "GIÁ" in sell.upper():
+                        sell = ""
                         
-                        # Quét toàn bộ chữ trong dòng để dò từ khóa (bất chấp web bị lệch cột)
-                        row_text = " ".join(cols).upper()
+                    # Nếu Mua và Bán đều bị trống hoặc toàn chữ (không có số tiền) -> Bỏ qua dòng này
+                    if not any(c.isdigit() for c in buy) and not any(c.isdigit() for c in sell):
+                        continue
                         
-                        # --- XỬ LÝ RÁC WEBGIA CHÈN VÀO CỘT SỐ ---
-                        lower_buy = buy.lower()
-                        lower_sell = sell.lower()
+                    # --- DỊCH THUẬT TÊN VÀNG CHUẨN CHO APP HTML ---
+                    # 1. Bắt Vàng nguyên liệu 999,9 (Phú Quý)
+                    if brand == "phu_quy" and ("V9999P" in row_text or "PHI SJC" in row_text):
+                        name = "Vàng nguyên liệu 999,9"
                         
-                        if "webgia" in lower_buy or "web" in lower_buy or "giá" in lower_buy:
-                            buy = ""
-                        if "webgia" in lower_sell or "web" in lower_sell or "giá" in lower_sell:
-                            sell = ""
-                            
-                        # Nếu cả 2 cột Mua và Bán đều không có bất kỳ con số nào thì bỏ qua dòng này
-                        if not any(c.isdigit() for c in buy) and not any(c.isdigit() for c in sell):
-                            continue
-                            
-                        # --- DỊCH TÊN VÀNG CHO APP THÁP TÀI SẢN ĐỌC ---
-                        # 1. Quét tìm V9999P của Phú Quý
-                        if brand == "phu_quy" and ("V9999P" in row_text or "999.9 PHI SJC" in row_text):
-                            name = "Vàng nguyên liệu 999,9"
-                            
-                        # 2. Quét tìm Nhẫn BTMH
-                        if brand == "btmh" and ("NHẪN TRÒN 999.9 BTMH" in row_text):
-                            name = "Vàng miếng SJC (Cty CP BTMH)"
-                            
-                        brand_prices.append({
-                            "type": name.strip(),
-                            "buy": buy,
-                            "sell": sell
-                        })
+                    # 2. Bắt Vàng miếng SJC BTMH
+                    if brand == "btmh" and "NHẪN TRÒN 999.9 BTMH" in row_text:
+                        name = "Vàng miếng SJC (Cty CP BTMH)"
+                        
+                    brand_prices.append({
+                        "type": name.strip(),
+                        "buy": buy,
+                        "sell": sell
+                    })
             return brand, brand_prices
     except Exception as e:
         print(f"Lỗi khi cào dữ liệu {brand}: {e}")
         return brand, []
 
 def crawl_gold_prices():
-    # URL cào dữ liệu Phú Quý và BTMH
     urls = {
         "phu_quy": "https://webgia.com/gia-vang/phu-quy/",
         "btmh": "https://webgia.com/gia-vang/bao-tin-manh-hai/"
