@@ -1,58 +1,93 @@
 {
-    "updated_at": "2026-11-10 07:41:39",
+    "updated_at": "2026-11-10 15:09:46",
     "prices": {
-        "btmh": [
-            {
-                "type": "Vàng miếng SJC (Cty CP BTMH)",
-                "buy": "13.790.000",
-                "sell": "14.090.000"
-            },
-            {
-                "type": "Vàng miếng SJC (Cty CP BTMH)",
-                "buy": "13.600.000",
-                "sell": "-"
-            },
-            {
-                "type": "Vàng trang sức 24K (999.9)",
-                "buy": "13.500.000",
-                "sell": "14.000.000"
-            },
-            {
-                "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
-                "buy": "13.700.000",
-                "sell": "-"
-            },
-            {
-                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
-                "buy": "13.700.000",
-                "sell": "14.100.000"
-            }
-        ],
         "phu_quy": [
             {
-                "type": "Hà Nội SJC Vàng miếng SJC",
+                "type": "Vàng miếng SJC",
                 "buy": "13.740.000",
                 "sell": "14.090.000"
             },
             {
-                "type": "NPQ Nhẫn tròn Phú Quý (24K 999.9)",
+                "type": "Nhẫn tròn Phú Quý 999.9",
                 "buy": "13.740.000",
                 "sell": "14.040.000"
             },
             {
-                "type": "PQ9999 Phú Quý 1 Lượng 999.9",
+                "type": "Phú Quý 1 Lượng 999.9",
                 "buy": "13.740.000",
                 "sell": "14.040.000"
             },
             {
-                "type": "PQ999 Phú Quý 1 Lượng 99.9",
+                "type": "Phú quý 1 lượng 99.9",
                 "buy": "13.730.000",
                 "sell": "14.030.000"
             },
             {
-                "type": "999-9",
+                "type": "Vàng trang sức 999.9",
                 "buy": "13.500.000",
                 "sell": "13.950.000"
+            },
+            {
+                "type": "Vàng trang sức 999",
+                "buy": "13.490.000",
+                "sell": "13.940.000"
+            },
+            {
+                "type": "Vàng trang sức 99",
+                "buy": "13.365.000",
+                "sell": "13.810.500"
+            },
+            {
+                "type": "Vàng trang sức 98",
+                "buy": "13.230.000",
+                "sell": "13.671.000"
+            },
+            {
+                "type": "Vàng nguyên liệu 999,9",
+                "buy": "12.900.000",
+                "sell": ""
+            },
+            {
+                "type": "Vàng 999.0  phi SJC",
+                "buy": "12.850.000",
+                "sell": ""
+            },
+            {
+                "type": "Bạc thỏi Phú Quý 999 (1Kilo, 10 lượng, 5 lượng, 1 lượng)",
+                "buy": "159.400",
+                "sell": "164.300"
+            },
+            {
+                "type": "Đồng bạc mỹ nghệ 999",
+                "buy": "159.400",
+                "sell": "187.500"
+            }
+        ],
+        "btmh": [
+            {
+                "type": "Vàng nguyên liệu 999,9",
+                "buy": "12.700.000",
+                "sell": ""
+            },
+            {
+                "type": "Vàng nguyên liệu 99.9",
+                "buy": "12.650.000",
+                "sell": ""
+            },
+            {
+                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
+                "buy": "1.587.000",
+                "sell": "1.867.000"
+            },
+            {
+                "type": "Bạc thỏi BTMH 999 1 KG",
+                "buy": "42.320.000",
+                "sell": "43.627.000"
+            },
+            {
+                "type": "Bạc Thỏi BTMH 1 lượng",
+                "buy": "1.587.000",
+                "sell": "1.636.000"
             }
         ]
     }
