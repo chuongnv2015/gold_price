@@ -2,7 +2,6 @@ name: Auto Update Gold Prices
 
 on:
   schedule:
-    # Tối ưu: Chạy mỗi 2 tiếng, từ 8h sáng đến 18h tối (Giờ VN = 1h đến 11h UTC), từ Thứ 2 đến Thứ 7
     - cron: '0 1,3,5,7,9,11 * * 1-6'
   workflow_dispatch:
 
@@ -33,17 +32,17 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          # BƯỚC 1: Đổi tên và cất file JSON mới cào được vào vùng an toàn
-          mv gold-prices.json gold-prices-new.json
+          # 1. Cất file JSON vừa cào được ra chỗ an toàn
+          cp gold-prices.json gold-prices-new.json
           
-          # BƯỚC 2: Xóa sạch rác và ép đồng bộ mới nhất từ Github về (Cam kết 100% không Conflict)
-          git reset --hard
-          git pull origin main
+          # 2. Ép máy chủ tải code mới nhất từ kho Github về, xóa bỏ mọi khác biệt (Chống Conflict tuyệt đối)
+          git fetch origin main
+          git reset --hard origin/main
           
-          # BƯỚC 3: Mang file JSON mới giấu ra và chèn đè lên file cũ của Github
+          # 3. Lấy file JSON mới đè lên file cũ của kho
           mv gold-prices-new.json gold-prices.json
           
-          # BƯỚC 4: Đẩy dữ liệu sạch lên Github
+          # 4. Lưu và đẩy lên Github
           git add gold-prices.json
           if ! git diff --staged --quiet; then
             git commit -m "Cập nhật giá vàng tự động [skip ci]"
