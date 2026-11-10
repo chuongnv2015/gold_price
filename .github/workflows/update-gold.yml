@@ -34,5 +34,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add gold-prices.json
-          # Đồng bộ code mới nhất về trước khi push để tránh lỗi rejected
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Cập nhật giá vàng tự động [skip ci]" && git pull --rebase origin main && git push)
+          
+          # Kiểm tra nếu file có thay đổi thì mới tiến hành lưu
+          if ! git diff --staged --quiet; then
+            git commit -m "Cập nhật giá vàng tự động [skip ci]"
+            # Bắt buộc kéo code mới nhất từ kho về để gộp (tránh lỗi rejected)
+            git pull --rebase origin main
+            # Đẩy lên lại kho
+            git push origin main
+          fi
