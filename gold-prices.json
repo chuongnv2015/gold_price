@@ -1,56 +1,61 @@
 {
-    "updated_at": "2026-11-09 19:40:52",
+    "updated_at": "2026-11-10 02:39:09",
     "prices": {
-        "btmc": [
+        "phu_quy": [
             {
-                "type": "VRTL",
-                "buy": "Vàng miếng 999.9 (24k)",
-                "sell": "13.680.000"
+                "type": "NPQ",
+                "buy": "Nhẫn tròn Phú Quý (24K 999.9)",
+                "sell": "13.800.000"
             },
             {
-                "type": "Nhẫn tròn trơn 999.9 (24k)",
-                "buy": "13.680.000",
-                "sell": "14.080.000"
+                "type": "PQ9999",
+                "buy": "Phú Quý 1 Lượng 999.9",
+                "sell": "13.800.000"
             },
             {
-                "type": "Đồng xu VRTL 0.1 999.9 (24k)",
-                "buy": "1.368.000",
-                "sell": "1.408.000"
+                "type": "PQ999",
+                "buy": "Phú Quý 1 Lượng 99.9",
+                "sell": "13.790.000"
             },
             {
-                "type": "Quà Mừng Vàng",
-                "buy": "Quà mừng bản vị vàng 999.9 (24k)",
-                "sell": "12.100.000"
+                "type": "999-9",
+                "buy": "",
+                "sell": "13.550.000"
             },
             {
-                "type": "Vàng SJC",
-                "buy": "Vàng miếng 999.9 (24k)",
-                "sell": "13.680.000"
+                "type": "999",
+                "buy": "Vàng trang sức 999",
+                "sell": "webgia.com"
             },
             {
-                "type": "Vàng BTMC",
-                "buy": "Trang sức bằng Vàng Rồng Thăng Long 999.9 (24k)",
+                "type": "99",
+                "buy": "Vàng trang sức 99",
+                "sell": "webgia.com"
+            },
+            {
+                "type": "98",
+                "buy": "Vàng trang sức 98",
+                "sell": "webgiá.com"
+            },
+            {
+                "type": "Vàng nguyên liệu 999,9",
+                "buy": "Vàng 999.9 phi SJC",
                 "sell": "xem tại webgia.com"
             },
             {
-                "type": "Vàng Thị Trường",
-                "buy": "Vàng 999.9 (24k)",
-                "sell": "webgia.com"
+                "type": "V9990P",
+                "buy": "Vàng 999.0 phi SJC",
+                "sell": "xem tại webgia.com"
+            },
+            {
+                "type": "BAC",
+                "buy": "Đồng bạc mỹ nghệ 99.9",
+                "sell": "web giá"
             }
         ],
         "btmh": [
             {
-                "type": "Vàng nguyên liệu 999,9",
-                "buy": "12.800.000",
-                "sell": "-"
-            },
-            {
-                "type": "Vàng nguyên liệu 99.9",
-                "buy": "12.750.000",
-                "sell": "-"
-            },
-            {
-                "type": "Nhẫn tròn 999.9 BTMH",
+                "type": "Vàng miếng SJC (Cty CP BTMH)",
                 "buy": "13.600.000",
                 "sell": "-"
             },
@@ -63,6 +68,16 @@
                 "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
                 "buy": "13.700.000",
                 "sell": "-"
+            },
+            {
+                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
+                "buy": "13.700.000",
+                "sell": "14.100.000"
+            },
+            {
+                "type": "Tiểu Kim Cát - 0,3 chỉ",
+                "buy": "1.370.000",
+                "sell": "1.410.000"
             }
         ]
     }
