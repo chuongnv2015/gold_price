@@ -1,33 +1,6 @@
 {
-    "updated_at": "2026-11-10 07:01:58",
+    "updated_at": "2026-11-10 07:07:24",
     "prices": {
-        "btmh": [
-            {
-                "type": "Vàng miếng SJC (Cty CP BTMH)",
-                "buy": "13.790.000",
-                "sell": "14.090.000"
-            },
-            {
-                "type": "Vàng miếng SJC (Cty CP BTMH)",
-                "buy": "13.600.000",
-                "sell": "-"
-            },
-            {
-                "type": "Vàng trang sức 24K (999.9)",
-                "buy": "13.500.000",
-                "sell": "14.000.000"
-            },
-            {
-                "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
-                "buy": "13.700.000",
-                "sell": "-"
-            },
-            {
-                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
-                "buy": "13.700.000",
-                "sell": "14.100.000"
-            }
-        ],
         "phu_quy": [
             {
                 "type": "Hà Nội SJC Vàng miếng SJC",
@@ -53,6 +26,33 @@
                 "type": "999-9",
                 "buy": "13.500.000",
                 "sell": "13.950.000"
+            }
+        ],
+        "btmh": [
+            {
+                "type": "Vàng miếng SJC (Cty CP BTMH)",
+                "buy": "13.790.000",
+                "sell": "14.090.000"
+            },
+            {
+                "type": "Vàng miếng SJC (Cty CP BTMH)",
+                "buy": "13.600.000",
+                "sell": "-"
+            },
+            {
+                "type": "Vàng trang sức 24K (999.9)",
+                "buy": "13.500.000",
+                "sell": "14.000.000"
+            },
+            {
+                "type": "Nhẫn ép vỉ Vàng Rồng Thăng Long",
+                "buy": "13.700.000",
+                "sell": "-"
+            },
+            {
+                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
+                "buy": "13.700.000",
+                "sell": "14.100.000"
             }
         ]
     }
