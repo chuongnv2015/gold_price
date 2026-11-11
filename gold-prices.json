@@ -1,10 +1,37 @@
 {
-    "updated_at": "2026-11-11 14:39:07",
+    "updated_at": "2026-11-11 23:59:41",
     "prices": {
+        "btmh": [
+            {
+                "type": "Vàng nguyên liệu 999,9",
+                "buy": "12.550.000",
+                "sell": ""
+            },
+            {
+                "type": "Vàng nguyên liệu 99.9",
+                "buy": "12.500.000",
+                "sell": ""
+            },
+            {
+                "type": "Vàng miếng SJC (Cty CP BTMH)",
+                "buy": "13.700.000",
+                "sell": "14.000.000"
+            },
+            {
+                "type": "Kim Gia Bảo Gift 24K",
+                "buy": "14.050.000",
+                "sell": "14.450.000"
+            },
+            {
+                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
+                "buy": "13.550.000",
+                "sell": "13.950.000"
+            }
+        ],
         "phu_quy": [
             {
                 "type": "Vàng miếng SJC",
-                "buy": "13.680.000",
+                "buy": "13.670.000",
                 "sell": "14.000.000"
             },
             {
@@ -61,33 +88,6 @@
                 "type": "Đồng bạc mỹ nghệ 999",
                 "buy": "161.300",
                 "sell": "189.800"
-            }
-        ],
-        "btmh": [
-            {
-                "type": "Kim Gia Bảo Gift 24K",
-                "buy": "14.050.000",
-                "sell": "14.450.000"
-            },
-            {
-                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
-                "buy": "13.550.000",
-                "sell": "13.950.000"
-            },
-            {
-                "type": "Vàng Kim Gia Bảo 24K (999.9)",
-                "buy": "13.550.000",
-                "sell": "13.950.000"
-            },
-            {
-                "type": "Tiểu Kim Cát - 0,3 chỉ",
-                "buy": "1.355.000",
-                "sell": "1.395.000"
-            },
-            {
-                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
-                "buy": "1.612.000",
-                "sell": "1.896.000"
             }
         ]
     }
