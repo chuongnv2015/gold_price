@@ -1,5 +1,5 @@
 {
-    "updated_at": "2026-11-12 15:07:34",
+    "updated_at": "2026-11-13 00:29:51",
     "prices": {
         "phu_quy": [
             {
@@ -54,16 +54,26 @@
             },
             {
                 "type": "Bạc thỏi Phú Quý 999 (1Kilo, 10 lượng, 5 lượng, 1 lượng)",
-                "buy": "157.500",
-                "sell": "162.400"
+                "buy": "156.200",
+                "sell": "161.000"
             },
             {
                 "type": "Đồng bạc mỹ nghệ 999",
-                "buy": "157.500",
-                "sell": "185.300"
+                "buy": "156.200",
+                "sell": "183.800"
             }
         ],
         "btmh": [
+            {
+                "type": "Vàng nguyên liệu 999,9",
+                "buy": "12.450.000",
+                "sell": ""
+            },
+            {
+                "type": "Vàng nguyên liệu 99.9",
+                "buy": "12.400.000",
+                "sell": ""
+            },
             {
                 "type": "Bạc Tứ Quý BTMH 999 1 lượng",
                 "buy": "1.563.000",
@@ -78,16 +88,6 @@
                 "type": "Bạc thỏi BTMH 999 1 KG",
                 "buy": "41.680.000",
                 "sell": "42.960.000"
-            },
-            {
-                "type": "Vàng nguyên liệu 999,9",
-                "buy": "12.450.000",
-                "sell": ""
-            },
-            {
-                "type": "Vàng nguyên liệu 99.9",
-                "buy": "12.400.000",
-                "sell": ""
             }
         ]
     }
