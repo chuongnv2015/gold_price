@@ -1,33 +1,6 @@
 {
-    "updated_at": "2026-11-13 14:43:20",
+    "updated_at": "2026-11-14 00:04:11",
     "prices": {
-        "btmh": [
-            {
-                "type": "Vàng nguyên liệu 999,9",
-                "buy": "12.650.000",
-                "sell": ""
-            },
-            {
-                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
-                "buy": "1.541.000",
-                "sell": "1.813.000"
-            },
-            {
-                "type": "Bạc Thỏi BTMH 1 lượng",
-                "buy": "1.541.000",
-                "sell": "1.589.000"
-            },
-            {
-                "type": "Bạc thỏi BTMH 999 1 KG",
-                "buy": "41.094.000",
-                "sell": "42.374.000"
-            },
-            {
-                "type": "Vàng nguyên liệu 99.9",
-                "buy": "12.530.000",
-                "sell": ""
-            }
-        ],
         "phu_quy": [
             {
                 "type": "Vàng miếng SJC",
@@ -81,13 +54,40 @@
             },
             {
                 "type": "Bạc thỏi Phú Quý 999 (1Kilo, 10 lượng, 5 lượng, 1 lượng)",
-                "buy": "153.000",
-                "sell": "157.700"
+                "buy": "152.500",
+                "sell": "157.200"
             },
             {
                 "type": "Đồng bạc mỹ nghệ 999",
-                "buy": "153.000",
-                "sell": "180.000"
+                "buy": "152.500",
+                "sell": "179.400"
+            }
+        ],
+        "btmh": [
+            {
+                "type": "Vàng nguyên liệu 999,9",
+                "buy": "12.580.000",
+                "sell": ""
+            },
+            {
+                "type": "Vàng nguyên liệu 99.9",
+                "buy": "12.530.000",
+                "sell": ""
+            },
+            {
+                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
+                "buy": "1.530.000",
+                "sell": "1.800.000"
+            },
+            {
+                "type": "Bạc thỏi BTMH 999 1 KG",
+                "buy": "40.800.000",
+                "sell": "42.054.000"
+            },
+            {
+                "type": "Bạc Thỏi BTMH 1 lượng",
+                "buy": "1.530.000",
+                "sell": "1.577.000"
             }
         ]
     }
