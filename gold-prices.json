@@ -1,5 +1,5 @@
 {
-    "updated_at": "2026-11-14 14:29:41",
+    "updated_at": "2026-11-14 22:41:38",
     "prices": {
         "phu_quy": [
             {
@@ -75,19 +75,19 @@
                 "sell": ""
             },
             {
-                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
-                "buy": "1.530.000",
-                "sell": "1.800.000"
+                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
+                "buy": "13.380.000",
+                "sell": "13.780.000"
             },
             {
-                "type": "Bạc thỏi BTMH 999 1 KG",
-                "buy": "40.800.000",
-                "sell": "42.054.000"
+                "type": "Vàng Kim Gia Bảo 24K (999.9)",
+                "buy": "13.380.000",
+                "sell": "13.780.000"
             },
             {
-                "type": "Bạc Thỏi BTMH 1 lượng",
-                "buy": "1.530.000",
-                "sell": "1.577.000"
+                "type": "Tiểu Kim Cát - 0,3 chỉ",
+                "buy": "1.338.000",
+                "sell": "1.378.000"
             }
         ]
     }
