@@ -1,6 +1,33 @@
 {
-    "updated_at": "2026-11-16 14:49:11",
+    "updated_at": "2026-11-17 02:27:27",
     "prices": {
+        "btmh": [
+            {
+                "type": "Vàng nguyên liệu 999,9",
+                "buy": "12.400.000",
+                "sell": ""
+            },
+            {
+                "type": "Vàng nguyên liệu 99.9",
+                "buy": "12.350.000",
+                "sell": ""
+            },
+            {
+                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
+                "buy": "13.350.000",
+                "sell": "13.750.000"
+            },
+            {
+                "type": "Vàng Kim Gia Bảo 24K (999.9)",
+                "buy": "13.350.000",
+                "sell": "13.750.000"
+            },
+            {
+                "type": "Tiểu Kim Cát - 0,3 chỉ",
+                "buy": "1.335.000",
+                "sell": "1.375.000"
+            }
+        ],
         "phu_quy": [
             {
                 "type": "Vàng miếng SJC",
@@ -54,40 +81,13 @@
             },
             {
                 "type": "Bạc thỏi Phú Quý 999 (1Kilo, 10 lượng, 5 lượng, 1 lượng)",
-                "buy": "145.500",
-                "sell": "150.000"
+                "buy": "146.600",
+                "sell": "151.100"
             },
             {
                 "type": "Đồng bạc mỹ nghệ 999",
-                "buy": "145.500",
-                "sell": "171.200"
-            }
-        ],
-        "btmh": [
-            {
-                "type": "Vàng nguyên liệu 999,9",
-                "buy": "12.520.000",
-                "sell": ""
-            },
-            {
-                "type": "Vàng nguyên liệu 99.9",
-                "buy": "12.470.000",
-                "sell": ""
-            },
-            {
-                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
-                "buy": "13.350.000",
-                "sell": "13.750.000"
-            },
-            {
-                "type": "Vàng Kim Gia Bảo 24K (999.9)",
-                "buy": "13.350.000",
-                "sell": "13.750.000"
-            },
-            {
-                "type": "Tiểu Kim Cát - 0,3 chỉ",
-                "buy": "1.335.000",
-                "sell": "1.375.000"
+                "buy": "146.600",
+                "sell": "172.500"
             }
         ]
     }
