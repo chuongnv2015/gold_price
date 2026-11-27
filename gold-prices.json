@@ -1,33 +1,6 @@
 {
-    "updated_at": "2026-11-27 16:33:43",
+    "updated_at": "2026-11-28 02:51:34",
     "prices": {
-        "btmh": [
-            {
-                "type": "Vàng nguyên liệu 999,9",
-                "buy": "11.770.000",
-                "sell": ""
-            },
-            {
-                "type": "Vàng nguyên liệu 99.9",
-                "buy": "11.720.000",
-                "sell": ""
-            },
-            {
-                "type": "Vàng miếng SJC (Cty CP BTMH)",
-                "buy": "13.100.000",
-                "sell": "13.600.000"
-            },
-            {
-                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
-                "buy": "1.542.000",
-                "sell": "1.814.000"
-            },
-            {
-                "type": "Bạc thỏi BTMH 999 1 KG",
-                "buy": "41.120.000",
-                "sell": "42.400.000"
-            }
-        ],
         "phu_quy": [
             {
                 "type": "Vàng miếng SJC",
@@ -81,13 +54,40 @@
             },
             {
                 "type": "Bạc thỏi Phú Quý 999 (1Kilo, 10 lượng, 5 lượng, 1 lượng)",
-                "buy": "155.400",
-                "sell": "160.200"
+                "buy": "154.700",
+                "sell": "159.500"
             },
             {
                 "type": "Đồng bạc mỹ nghệ 999",
-                "buy": "155.400",
-                "sell": "182.800"
+                "buy": "154.700",
+                "sell": "182.000"
+            }
+        ],
+        "btmh": [
+            {
+                "type": "Bạc Tứ Quý BTMH 999 1 lượng",
+                "buy": "1.547.000",
+                "sell": "1.820.000"
+            },
+            {
+                "type": "Bạc thỏi BTMH 999 1 KG",
+                "buy": "41.254.000",
+                "sell": "42.534.000"
+            },
+            {
+                "type": "Bạc Thỏi BTMH 1 lượng",
+                "buy": "1.547.000",
+                "sell": "1.595.000"
+            },
+            {
+                "type": "Đồng vàng Kim Gia Bảo Hoa Sen",
+                "buy": "12.950.000",
+                "sell": "13.450.000"
+            },
+            {
+                "type": "Vàng Kim Gia Bảo 24K (999.9)",
+                "buy": "12.950.000",
+                "sell": "13.450.000"
             }
         ]
     }
